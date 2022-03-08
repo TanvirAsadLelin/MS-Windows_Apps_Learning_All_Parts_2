@@ -16,5 +16,12 @@ namespace SignOut_Functionality_WindowsFormsApp
         {
             InitializeComponent();
         }
+
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Program.loginForm.Show();
+
+        }
     }
 }

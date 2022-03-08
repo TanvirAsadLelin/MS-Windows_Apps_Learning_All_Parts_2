@@ -7,7 +7,9 @@ using System.Windows.Forms;
 namespace SignOut_Functionality_WindowsFormsApp
 {
     internal static class Program
-    {
+    {   
+        public static LoginForm loginForm;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +18,9 @@ namespace SignOut_Functionality_WindowsFormsApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            loginForm = new LoginForm();
+
+            Application.Run(Program.loginForm);
         }
     }
 }

@@ -44,6 +44,9 @@ namespace SignOut_Functionality_WindowsFormsApp
             if (rd.HasRows == true)
             {
                 MessageBox.Show("Login Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SignOutForm signOutForm = new SignOutForm();
+                this.Hide();
+                signOutForm.Show();
             }
 
             else
@@ -64,6 +67,13 @@ namespace SignOut_Functionality_WindowsFormsApp
             {
                 textBoxPassword.UseSystemPasswordChar = true;
             }
+        }
+
+        private void LoginForm_VisibleChanged(object sender, EventArgs e)
+        {
+            textBoxUsername.Clear();
+            textBoxPassword.Clear();
+            textBoxUsername.Focus();
         }
     }
 }
