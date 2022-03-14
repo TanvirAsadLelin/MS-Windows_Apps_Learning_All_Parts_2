@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Configuration;
+using System.Data.SqlClient;
+
 namespace Employee_Payroll_WindowsFormsApp
 {
     public partial class Form1 : Form
     {
+        string cs = ConfigurationManager.ConnectionStrings["DBConnectionstring"].ConnectionString;
         public Form1()
         {
             InitializeComponent();
+            BindGridview();
+            Total_netSalary();
+            Total_employee();
         }
 
         private void textBoxId_Leave(object sender, EventArgs e)
@@ -200,7 +207,7 @@ namespace Employee_Payroll_WindowsFormsApp
 
 
 
-                   textBoxIncomeTax.Text = "No need income tax";
+                   textBoxIncomeTax.Text = 0.ToString();
 
                     netSalary = grossPay;
 
@@ -224,6 +231,102 @@ namespace Employee_Payroll_WindowsFormsApp
             textBoxGrossPay.Clear();
             textBoxIncomeTax.Clear();
             textBoxNetSalary.Clear();
+
+        }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(cs);
+
+            string query = "insert into EmployeePayroll_Tbl values (@id,@name,@designation,@basicPay,@conveyance,@medical,@houseRent,@grossPay,@incomeTax,@netSalary)";
+            SqlCommand cmd =  new SqlCommand(query, con);
+
+            cmd.Parameters.AddWithValue("@id",textBoxId.Text);
+            cmd.Parameters.AddWithValue("@name",textBoxName.Text);
+            cmd.Parameters.AddWithValue("@designation", textBoxDesignation.Text);
+            cmd.Parameters.AddWithValue("@basicPay", textBoxBasicPay.Text);
+            cmd.Parameters.AddWithValue("@conveyance", textBoxConveyance.Text);
+            cmd.Parameters.AddWithValue("@medical", textBoxMedical.Text);
+            cmd.Parameters.AddWithValue("@houseRent", textBoxHouseRent.Text);
+            cmd.Parameters.AddWithValue("@grossPay", textBoxGrossPay.Text);
+            cmd.Parameters.AddWithValue("@incomeTax", textBoxIncomeTax.Text);
+            cmd.Parameters.AddWithValue("@netSalary", textBoxNetSalary.Text);
+
+            con.Open();
+         
+
+           int value =  cmd.ExecuteNonQuery();
+
+            if (value > 0)
+            {
+                MessageBox.Show("Inserted Successfuly!","Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                BindGridview();
+                Total_netSalary();
+                Total_employee();
+            }
+            else
+            {
+                MessageBox.Show("Inserted Failed!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            con.Close();
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+
+            BindGridview();
+
+        }
+
+        void BindGridview()
+        {
+            SqlConnection con = new SqlConnection(cs);
+
+            string querySelect = "select * from EmployeePayroll_Tbl";
+            // SqlCommand cmd = new SqlCommand(querySelect, con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(querySelect, con);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+
+            dataGridViewEmployeePayroll.DataSource = dataTable;
+        }
+
+        void Total_netSalary()
+        {
+            SqlConnection con = new SqlConnection(cs);
+
+            string queryAggregetFunction = "select sum(NetSalary) from EmployeePayroll_Tbl";
+
+            SqlCommand cmd  =  new SqlCommand(queryAggregetFunction, con);
+
+            con.Open();
+            int totalNetSaalry =Convert.ToInt32 ( cmd.ExecuteScalar());
+
+            textBoxSalaryPaid.Text = totalNetSaalry.ToString();
+
+            con.Close();
+
+
+        }
+
+        void Total_employee()
+        {
+            SqlConnection con = new SqlConnection(cs);
+
+            string queryAggregetFunction = "select count(Id) from EmployeePayroll_Tbl";
+
+            SqlCommand cmd = new SqlCommand(queryAggregetFunction, con);
+
+            con.Open();
+            int totalEmployee = Convert.ToInt32(cmd.ExecuteScalar());
+
+            textBoxTotalEmp.Text = totalEmployee.ToString();
+
+            con.Close();
+
 
         }
     }
