@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create_SplashScreen_WithProgressBar_WindowsFormsApp", "Create_SplashScreen_WithProgressBar_WindowsFormsApp\Create_SplashScreen_WithProgressBar_WindowsFormsApp.csproj", "{F14A436E-39C0-4072-AF83-3290C54D769C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F14A436E-39C0-4072-AF83-3290C54D769C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14A436E-39C0-4072-AF83-3290C54D769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14A436E-39C0-4072-AF83-3290C54D769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14A436E-39C0-4072-AF83-3290C54D769C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CFA2CFA-6892-428E-A405-E7C3F7F819D5}
+	EndGlobalSection
+EndGlobal
